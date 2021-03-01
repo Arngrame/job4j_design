@@ -16,24 +16,18 @@ public class MatrixIt implements Iterator<Integer> {
     @Override
     public boolean hasNext() {
 
-        // check row index in matrix borders
-        if (row < data.length) {
-            // check column index less than current row length
-            if (column < data[row].length) {
+        if (row < data.length && column < data[row].length) {
+            return true;
+        }
+
+        column = 0;
+        row++;
+
+        while (row != data.length) {
+            if (data[row].length != 0) {
                 return true;
             }
-
-            // in other cases row should be increased and column should set 0 due to new row started
-            column = 0;
             row++;
-
-            // increase row index until reach row border
-            while (row != data.length) {
-                if (data[row].length != 0) {
-                    return true;
-                }
-                row++;
-            }
         }
         return false;
     }
