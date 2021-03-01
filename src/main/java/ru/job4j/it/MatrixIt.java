@@ -29,11 +29,10 @@ public class MatrixIt implements Iterator<Integer> {
 
             // increase row index until reach row border
             while (row != data.length) {
-                if (data[row].length == 0) {
-                    row++;
-                } else {
+                if (data[row].length != 0) {
                     return true;
                 }
+                row++;
             }
         }
         return false;
