@@ -2,6 +2,8 @@ package ru.job4j.collections;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -120,6 +122,27 @@ public class SimpleArrayTest {
         simpleArray.add(300);
 
         simpleArray.remove(3);
+    }
+
+    @Test
+    public void iteratorTest() {
+        SimpleArray<Integer> simpleArray = new SimpleArray<>();
+
+        simpleArray.add(100);
+        simpleArray.add(200);
+        simpleArray.add(300);
+        simpleArray.add(400);
+
+        Iterator<Integer> iterator = simpleArray.iterator();
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(100));
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(200));
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(300));
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(400));
+        assertThat(iterator.hasNext(), is(false));
     }
 
 }

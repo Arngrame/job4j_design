@@ -1,5 +1,6 @@
 package ru.job4j.collections;
 
+import java.util.Iterator;
 import java.util.Objects;
 
 public class SimpleArray<T> {
@@ -39,6 +40,29 @@ public class SimpleArray<T> {
 
     public int size() {
         return size;
+    }
+
+    public Iterator<T> iterator() {
+        return new SimpleArrayIterator<>();
+    }
+
+    private class SimpleArrayIterator<T> implements Iterator<T> {
+
+        int pointer = 0;
+
+        SimpleArrayIterator() {
+
+        }
+
+        @Override
+        public boolean hasNext() {
+            return pointer < size;
+        }
+
+        @Override
+        public T next() {
+            return (T) data[pointer++];
+        }
     }
 
 }
