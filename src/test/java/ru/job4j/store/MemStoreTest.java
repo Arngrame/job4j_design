@@ -79,4 +79,73 @@ public class MemStoreTest {
         roleStoreStore.findById("ROLE#004");
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void removeTest() {
+        Store<User> userStore = new MemStore<>();
+
+        User user1 = new User("USER#001");
+        User user2 = new User("USER#002");
+        User user3 = new User("USER#003");
+        User user4 = new User("USER#004");
+
+        userStore.add(user1);
+        userStore.add(user2);
+        userStore.add(user3);
+        userStore.add(user4);
+
+        assertThat(userStore.findById("USER#001"), is(user1));
+        assertThat(userStore.findById("USER#002"), is(user2));
+        assertThat(userStore.findById("USER#003"), is(user3));
+        assertThat(userStore.findById("USER#004"), is(user4));
+
+        assertThat(userStore.delete("USER#003"), is(true));
+
+        userStore.findById("USER#003");
+    }
+
+    @Test
+    public void removeDuplicateTest() {
+        Store<User> userStore = new MemStore<>();
+
+        User user1 = new User("USER#001");
+        User user2 = new User("USER#001");
+        User user3 = new User("USER#003");
+        User user4 = new User("USER#004");
+
+        userStore.add(user1);
+        userStore.add(user2);
+        userStore.add(user3);
+        userStore.add(user4);
+
+        assertThat(userStore.findById("USER#001"), is(user1));
+        assertThat(userStore.findById("USER#001"), is(user1));
+        assertThat(userStore.findById("USER#003"), is(user3));
+        assertThat(userStore.findById("USER#004"), is(user4));
+
+        assertThat(userStore.delete("USER#001"), is(true));
+
+        assertThat(userStore.findById("USER#001"), is(user2));
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void removeNonExistingElementTest() {
+        Store<User> userStore = new MemStore<>();
+
+        User user1 = new User("USER#001");
+        User user2 = new User("USER#001");
+        User user3 = new User("USER#003");
+        User user4 = new User("USER#004");
+
+        userStore.add(user1);
+        userStore.add(user2);
+        userStore.add(user3);
+        userStore.add(user4);
+
+        assertThat(userStore.findById("USER#001"), is(user1));
+        assertThat(userStore.findById("USER#001"), is(user1));
+        assertThat(userStore.findById("USER#003"), is(user3));
+        assertThat(userStore.findById("USER#004"), is(user4));
+
+        userStore.delete("USER#005");
+    }
 }
