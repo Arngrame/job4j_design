@@ -64,7 +64,7 @@ public class MemStoreTest {
 
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void replaceNotExistedElementTest() {
         MemStore<Role> roleStoreStore = new MemStore<>();
 
@@ -76,10 +76,10 @@ public class MemStoreTest {
         roleStoreStore.add(role2);
         roleStoreStore.add(role3);
 
-        roleStoreStore.findById("ROLE#004");
+        assertThat(roleStoreStore.findById("ROLE#004") == null, is(true));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void removeTest() {
         MemStore<User> userStore = new MemStore<>();
 
@@ -100,7 +100,7 @@ public class MemStoreTest {
 
         assertThat(userStore.delete("USER#003"), is(true));
 
-        userStore.findById("USER#003");
+        assertThat(userStore.findById("USER#003") == null, is(true));
     }
 
     @Test
@@ -127,7 +127,7 @@ public class MemStoreTest {
         assertThat(userStore.findById("USER#001"), is(user2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void removeNonExistingElementTest() {
         MemStore<User> userStore = new MemStore<>();
 
@@ -146,6 +146,6 @@ public class MemStoreTest {
         assertThat(userStore.findById("USER#003"), is(user3));
         assertThat(userStore.findById("USER#004"), is(user4));
 
-        userStore.delete("USER#005");
+        assertThat(userStore.delete("USER#005"), is(false));
     }
 }

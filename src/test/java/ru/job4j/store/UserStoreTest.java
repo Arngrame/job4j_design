@@ -64,7 +64,7 @@ public class UserStoreTest {
 
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void replaceNotExistedElementTest() {
         Store<User> userStore = new UserStore();
 
@@ -76,10 +76,10 @@ public class UserStoreTest {
         userStore.add(user2);
         userStore.add(user3);
 
-        userStore.findById("USER#004");
+        assertThat(userStore.findById("USER#004") == null, is(true));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void removeTest() {
         Store<User> userStore = new UserStore();
 
@@ -100,7 +100,7 @@ public class UserStoreTest {
 
         assertThat(userStore.delete("USER#003"), is(true));
 
-        userStore.findById("USER#003");
+        assertThat(userStore.findById("USER#003") == null, is(true));
     }
 
     @Test
@@ -127,7 +127,7 @@ public class UserStoreTest {
         assertThat(userStore.findById("USER#001"), is(user2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void removeNonExistingElementTest() {
         Store<User> userStore = new UserStore();
 
@@ -146,7 +146,7 @@ public class UserStoreTest {
         assertThat(userStore.findById("USER#003"), is(user3));
         assertThat(userStore.findById("USER#004"), is(user4));
 
-        userStore.delete("USER#005");
+        assertThat(userStore.delete("USER#005"), is(false));
     }
 
 }

@@ -64,22 +64,22 @@ public class RoleStoreTest {
 
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void replaceNotExistedElementTest() {
         Store<Role> roleStore = new RoleStore();
 
         Role role1 = new Role("ROLE#001");
-        Role role2 = new Role("ROLE#001");
+        Role role2 = new Role("ROLE#002");
         Role role3 = new Role("ROLE#003");
 
         roleStore.add(role1);
         roleStore.add(role2);
         roleStore.add(role3);
 
-        roleStore.findById("ROLE#004");
+        assertThat(roleStore.findById("ROLE#004") == null, is(true));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void removeTest() {
         Store<Role> roleStore = new RoleStore();
 
@@ -100,7 +100,7 @@ public class RoleStoreTest {
 
         assertThat(roleStore.delete("ROLE#003"), is(true));
 
-        roleStore.findById("ROLE#003");
+        assertThat(roleStore.findById("ROLE#003") == null, is(true));
     }
 
     @Test
@@ -127,7 +127,7 @@ public class RoleStoreTest {
         assertThat(roleStore.findById("ROLE#001"), is(role2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void removeNonExistingElementTest() {
         Store<Role> roleStore = new RoleStore();
 
@@ -146,7 +146,7 @@ public class RoleStoreTest {
         assertThat(roleStore.findById("ROLE#003"), is(role3));
         assertThat(roleStore.findById("ROLE#004"), is(role4));
 
-        roleStore.delete("ROLE#005");
+        assertThat(roleStore.delete("ROLE#005"), is(false));
     }
 
 }
