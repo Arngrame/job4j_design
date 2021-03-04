@@ -1,6 +1,7 @@
 package ru.job4j.collections;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SimpleArray<T> {
@@ -61,6 +62,9 @@ public class SimpleArray<T> {
 
         @Override
         public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             return (T) data[pointer++];
         }
     }
