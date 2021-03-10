@@ -7,12 +7,12 @@ public class ForwardLinked<T> implements Iterable<T> {
     private Node<T> head;
 
     public T deleteFirst() {
-        if (head != null) {
-            T value = head.value;
-            head = head.next;
-            return value;
+        if (head == null) {
+            throw new NoSuchElementException();
         }
-        throw new NoSuchElementException();
+        T value = head.value;
+        head = head.next;
+        return value;
     }
 
     public void add(T value) {
