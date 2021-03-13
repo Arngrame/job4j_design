@@ -12,4 +12,8 @@ public class SimpleStack<T> {
         linked.addFirst(value);
     }
 
+    public void pushToTail(T value) {
+        linked.add(value);
+    }
+
 }
