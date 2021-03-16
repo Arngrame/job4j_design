@@ -16,4 +16,8 @@ public class SimpleStack<T> {
         return linked.size();
     }
 
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
 }
