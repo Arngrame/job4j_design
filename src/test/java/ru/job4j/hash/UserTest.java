@@ -10,7 +10,7 @@ import java.util.Map;
 public class UserTest {
 
     @Test
-    public void test () {
+    public void test() {
         Calendar birthday = new GregorianCalendar(1990, Calendar.NOVEMBER, 3);
         User employee1 = new User("Mike", 3, birthday);
         User employee2 = new User("Mike", 3, birthday);
@@ -29,6 +29,8 @@ public class UserTest {
 
         System.out.println("First employee index of bucket = " + firstEmpHash % 16);
         System.out.println("Second employee index of bucket = " + secondEmpHash % 16);
+
+        System.out.println(employee1.equals(employee2));
 
         for (Map.Entry<User, Object> entry : employees.entrySet()) {
             System.out.println("Key:" + entry.getKey());

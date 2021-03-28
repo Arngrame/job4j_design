@@ -19,6 +19,15 @@ public class User {
 
     @Override
     public String toString() {
-        return  "name='" + name + ", children=" + children + ", birthday=" + birthday;
+        return "name='" + name + ", children=" + children + ", birthday=" + birthday;
+    }
+
+    @Override
+    public int hashCode() {
+        int defaultHash = 31;
+        defaultHash = defaultHash * 17 + (name == null ? 0 : name.hashCode());
+        defaultHash = defaultHash * 17 + children;
+        defaultHash = defaultHash * 17 + (birthday == null ? 0 : birthday.hashCode());
+        return defaultHash;
     }
 }
