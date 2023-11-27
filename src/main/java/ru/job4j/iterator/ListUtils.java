@@ -48,7 +48,6 @@ public class ListUtils {
     public static <T> void replaceIf(List<T> list, Predicate<T> filter, T value) {
         ListIterator<T> i = list.listIterator();
         while (i.hasNext()) {
-            int index = i.nextIndex();
             if (filter.test(i.next())) {
                 i.set(value);
             }
