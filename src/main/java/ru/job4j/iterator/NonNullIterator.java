@@ -15,29 +15,24 @@ public class NonNullIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return getIndexOfFirstNotNull() != -1;
+        for (int i = index + 1; i < data.length; i++) {
+            if (data[i] != null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public Integer next() {
-        index = getIndexOfFirstNotNull();
-        if (index == -1) {
-            throw new NoSuchElementException();
-        }
-        return data[index];
-    }
-
-    /**
-     *
-     * @return {@code -1} if iterator data does not contain not null elements right to the index
-     * or an index of first not null value
-     */
-    private int getIndexOfFirstNotNull() {
-        for (int i = index + 1; i < data.length; i++) {
-            if (data[i] != null) {
-                return i;
+        if (hasNext()) {
+            for (int i = index + 1; i < data.length; i++) {
+                if (data[i] != null) {
+                    index = i;
+                    return data[index];
+                }
             }
         }
-        return -1;
+        throw new NoSuchElementException();
     }
 }
