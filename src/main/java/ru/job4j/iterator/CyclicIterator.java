@@ -24,10 +24,11 @@ public class CyclicIterator<T> implements Iterator<T> {
 
     @Override
     public T next() {
-        if (hasNext()) {
-            index = index == data.size() - 1 ? 0 : index + 1;
-            return data.get(index);
+        if (!hasNext()) {
+            throw new NoSuchElementException();
         }
-        throw new NoSuchElementException();
+
+        index = index == data.size() - 1 ? 0 : index + 1;
+        return data.get(index);
     }
 }
