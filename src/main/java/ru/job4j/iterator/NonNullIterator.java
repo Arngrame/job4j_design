@@ -6,17 +6,20 @@ import java.util.NoSuchElementException;
 public class NonNullIterator implements Iterator<Integer> {
 
     private Integer[] data;
-    private int index;
+    private int currentIndex;
+    private int nextIndex;
 
     public NonNullIterator(Integer[] data) {
         this.data = data;
-        index = -1;
+        currentIndex = -1;
+        nextIndex = -1;
     }
 
     @Override
     public boolean hasNext() {
-        for (int i = index + 1; i < data.length; i++) {
+        for (int i = currentIndex + 1; i < data.length; i++) {
             if (data[i] != null) {
+                nextIndex = i;
                 return true;
             }
         }
@@ -25,14 +28,10 @@ public class NonNullIterator implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-        if (hasNext()) {
-            for (int i = index + 1; i < data.length; i++) {
-                if (data[i] != null) {
-                    index = i;
-                    return data[index];
-                }
-            }
+        if (!hasNext()) {
+            throw new NoSuchElementException();
         }
-        throw new NoSuchElementException();
+        currentIndex = nextIndex;
+        return data[currentIndex];
     }
 }
