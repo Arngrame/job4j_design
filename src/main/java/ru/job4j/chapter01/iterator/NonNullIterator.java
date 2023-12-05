@@ -10,7 +10,6 @@ public class NonNullIterator implements Iterator<Integer> {
 
     public NonNullIterator(Integer[] data) {
         this.data = data;
-        index = 0;
     }
 
     @Override
