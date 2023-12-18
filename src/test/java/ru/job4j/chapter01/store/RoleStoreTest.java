@@ -1,9 +1,8 @@
 package ru.job4j.chapter01.store;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class RoleStoreTest {
 
@@ -19,9 +18,9 @@ public class RoleStoreTest {
         roleStore.add(role2);
         roleStore.add(role3);
 
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#002"), is(role2));
-        assertThat(roleStore.findById("ROLE#003"), is(role3));
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#002")).isEqualTo(role2);
+        assertThat(roleStore.findById("ROLE#003")).isEqualTo(role3);
     }
 
     @Test
@@ -36,9 +35,9 @@ public class RoleStoreTest {
         roleStore.add(role2);
         roleStore.add(role3);
 
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#003"), is(role3));
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#003")).isEqualTo(role3);
     }
 
     @Test
@@ -54,13 +53,13 @@ public class RoleStoreTest {
         roleStore.add(role2);
         roleStore.add(role3);
 
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#003"), is(role3));
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#003")).isEqualTo(role3);
 
-        assertThat(roleStore.replace("ROLE#003", role4), is(true));
+        assertThat(roleStore.replace("ROLE#003", role4)).isTrue();
 
-        assertThat(roleStore.findById("ROLE#004"), is(role4));
+        assertThat(roleStore.findById("ROLE#004")).isEqualTo(role4);
 
     }
 
@@ -76,7 +75,7 @@ public class RoleStoreTest {
         roleStore.add(role2);
         roleStore.add(role3);
 
-        assertThat(roleStore.findById("ROLE#004") == null, is(true));
+        assertThat(roleStore.findById("ROLE#004") == null).isTrue();
     }
 
     @Test
@@ -93,14 +92,14 @@ public class RoleStoreTest {
         roleStore.add(role3);
         roleStore.add(role4);
 
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#002"), is(role2));
-        assertThat(roleStore.findById("ROLE#003"), is(role3));
-        assertThat(roleStore.findById("ROLE#004"), is(role4));
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#002")).isEqualTo(role2);
+        assertThat(roleStore.findById("ROLE#003")).isEqualTo(role3);
+        assertThat(roleStore.findById("ROLE#004")).isEqualTo(role4);
 
-        assertThat(roleStore.delete("ROLE#003"), is(true));
+        assertThat(roleStore.delete("ROLE#003")).isTrue();
 
-        assertThat(roleStore.findById("ROLE#003") == null, is(true));
+        assertThat(roleStore.findById("ROLE#003") == null).isTrue();
     }
 
     @Test
@@ -117,14 +116,14 @@ public class RoleStoreTest {
         roleStore.add(role3);
         roleStore.add(role4);
 
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#003"), is(role3));
-        assertThat(roleStore.findById("ROLE#004"), is(role4));
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#003")).isEqualTo(role3);
+        assertThat(roleStore.findById("ROLE#004")).isEqualTo(role4);
 
-        assertThat(roleStore.delete("ROLE#001"), is(true));
+        assertThat(roleStore.delete("ROLE#001")).isTrue();
 
-        assertThat(roleStore.findById("ROLE#001"), is(role2));
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role2);
     }
 
     @Test
@@ -141,12 +140,12 @@ public class RoleStoreTest {
         roleStore.add(role3);
         roleStore.add(role4);
 
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#003"), is(role3));
-        assertThat(roleStore.findById("ROLE#004"), is(role4));
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#003")).isEqualTo(role3);
+        assertThat(roleStore.findById("ROLE#004")).isEqualTo(role4);
 
-        assertThat(roleStore.delete("ROLE#005"), is(false));
+        assertThat(roleStore.delete("ROLE#005")).isFalse();
     }
 
 }

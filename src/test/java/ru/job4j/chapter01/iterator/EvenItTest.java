@@ -1,59 +1,63 @@
 package ru.job4j.chapter01.iterator;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class EvenItTest {
 
     private Iterator<Integer> it;
 
-    @Before
     public void setUp() {
-        it = new EvenIt(new int[] {1, 2, 3, 4, 5, 6, 7});
+        it = new EvenIt(new int[]{1, 2, 3, 4, 5, 6, 7});
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test()
     public void shouldReturnEvenNumbersSequentially() {
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(2));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(4));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(6));
-        assertThat(it.hasNext(), is(false));
-        it.next();
+        setUp();
+
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo(2);
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo(4);
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo(6);
+        assertThat(it.hasNext()).isFalse();
+
+        assertThatThrownBy(it::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     public void sequentialHasNextInvocationDoesntAffectRetrievalOrder() {
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(2));
-        assertThat(it.next(), is(4));
-        assertThat(it.next(), is(6));
+        setUp();
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo(2);
+        assertThat(it.next()).isEqualTo(4);
+        assertThat(it.next()).isEqualTo(6);
     }
 
     @Test
-    public void  shouldReturnFalseIfNoAnyEvenNumbers() {
+    public void shouldReturnFalseIfNoAnyEvenNumbers() {
         it = new EvenIt(new int[]{1});
-        assertThat(it.hasNext(), is(false));
+        assertThat(it.hasNext()).isFalse();
     }
 
     @Test
     public void allNumbersAreEven() {
-        it = new EvenIt(new int[] {2, 4, 6, 8});
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(2));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(4));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(6));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(8));
+        it = new EvenIt(new int[]{2, 4, 6, 8});
+
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo(2);
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo(4);
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo(6);
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo(8);
     }
 }

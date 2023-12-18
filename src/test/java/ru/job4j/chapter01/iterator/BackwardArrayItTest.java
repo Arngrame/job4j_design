@@ -1,11 +1,11 @@
 package ru.job4j.chapter01.iterator;
 
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.Matchers.is;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class BackwardArrayItTest {
 
@@ -13,27 +13,30 @@ public class BackwardArrayItTest {
     @Test
     public void whenMultiCallhasNextThenTrue() {
         BackwardArrayIt it = new BackwardArrayIt(
-                new int[] {1, 2, 3}
+                new int[]{1, 2, 3}
         );
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.hasNext(), is(true));
+
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.hasNext()).isTrue();
     }
 
     @Test
     public void whenReadSequence() {
         BackwardArrayIt it = new BackwardArrayIt(
-                new int[] {1, 2, 3}
+                new int[]{1, 2, 3}
         );
-        assertThat(it.next(), is(3));
-        assertThat(it.next(), is(2));
-        assertThat(it.next(), is(1));
+
+        assertThat(it.next()).isEqualTo(3);
+        assertThat(it.next()).isEqualTo(2);
+        assertThat(it.next()).isEqualTo(1);
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test()
     public void whenNextFromEmpty() {
         BackwardArrayIt it = new BackwardArrayIt(
-                new int[] {}
+                new int[]{}
         );
-        it.next();
+
+        assertThatThrownBy(it::next).isInstanceOf(NoSuchElementException.class);
     }
 }

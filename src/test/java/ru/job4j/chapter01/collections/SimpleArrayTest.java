@@ -1,22 +1,23 @@
 package ru.job4j.chapter01.collections;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class SimpleArrayTest {
 
     @Test
     public void addTest() {
         SimpleArray<Integer> simpleArray = new SimpleArray<>();
-        assertThat(simpleArray.size(), is(0));
+        assertThat(simpleArray.size()).isEqualTo(0);
 
         simpleArray.add(100500);
-        assertThat(simpleArray.size(), is(1));
-        assertThat(simpleArray.get(0), is(100500));
+        assertThat(simpleArray.size()).isEqualTo(1);
+        assertThat(simpleArray.get(0)).isEqualTo(100500);
     }
 
     @Test
@@ -30,10 +31,10 @@ public class SimpleArrayTest {
 
         simpleArray.set(2, 330);
 
-        assertThat(simpleArray.get(0), is(100));
-        assertThat(simpleArray.get(1), is(200));
-        assertThat(simpleArray.get(2), is(330));
-        assertThat(simpleArray.get(3), is(400));
+        assertThat(simpleArray.get(0)).isEqualTo(100);
+        assertThat(simpleArray.get(1)).isEqualTo(200);
+        assertThat(simpleArray.get(2)).isEqualTo(330);
+        assertThat(simpleArray.get(3)).isEqualTo(400);
     }
 
     @Test
@@ -51,15 +52,15 @@ public class SimpleArrayTest {
 
         simpleArray.remove(0);
 
-        assertThat(simpleArray.get(0), is(200));
-        assertThat(simpleArray.get(1), is(300));
-        assertThat(simpleArray.get(2), is(400));
-        assertThat(simpleArray.get(3), is(500));
-        assertThat(simpleArray.get(4), is(600));
-        assertThat(simpleArray.get(5), is(700));
-        assertThat(simpleArray.get(6), is(800));
+        assertThat(simpleArray.get(0)).isEqualTo(200);
+        assertThat(simpleArray.get(1)).isEqualTo(300);
+        assertThat(simpleArray.get(2)).isEqualTo(400);
+        assertThat(simpleArray.get(3)).isEqualTo(500);
+        assertThat(simpleArray.get(4)).isEqualTo(600);
+        assertThat(simpleArray.get(5)).isEqualTo(700);
+        assertThat(simpleArray.get(6)).isEqualTo(800);
 
-        assertThat(simpleArray.size(), is(7));
+        assertThat(simpleArray.size()).isEqualTo(7);
     }
 
     @Test
@@ -77,32 +78,30 @@ public class SimpleArrayTest {
 
         simpleArray.remove(5);
 
-        assertThat(simpleArray.get(0), is(100));
-        assertThat(simpleArray.get(1), is(200));
-        assertThat(simpleArray.get(2), is(300));
-        assertThat(simpleArray.get(3), is(400));
-        assertThat(simpleArray.get(4), is(500));
-        assertThat(simpleArray.get(5), is(700));
-        assertThat(simpleArray.get(6), is(800));
+        assertThat(simpleArray.get(0)).isEqualTo(100);
+        assertThat(simpleArray.get(1)).isEqualTo(200);
+        assertThat(simpleArray.get(2)).isEqualTo(300);
+        assertThat(simpleArray.get(3)).isEqualTo(400);
+        assertThat(simpleArray.get(4)).isEqualTo(500);
+        assertThat(simpleArray.get(5)).isEqualTo(700);
+        assertThat(simpleArray.get(6)).isEqualTo(800);
 
-        assertThat(simpleArray.size(), is(7));
+        assertThat(simpleArray.size()).isEqualTo(7);
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test()
     public void failureGetTest() {
         SimpleArray<Integer> simpleArray = new SimpleArray<>();
-
-        simpleArray.get(-1);
+        assertThatThrownBy(() -> simpleArray.get(-1)).isInstanceOf(IndexOutOfBoundsException.class);
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test()
     public void failureSetTest() {
         SimpleArray<Integer> simpleArray = new SimpleArray<>();
-
-        simpleArray.set(0, 2);
+        assertThatThrownBy(() -> simpleArray.set(0, 2)).isInstanceOf(IndexOutOfBoundsException.class);
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test()
     public void failureRemoveMoreThan0Test() {
         SimpleArray<Integer> simpleArray = new SimpleArray<>();
 
@@ -110,10 +109,10 @@ public class SimpleArrayTest {
         simpleArray.add(200);
         simpleArray.add(300);
 
-        simpleArray.remove(-1);
+        assertThatThrownBy(() -> simpleArray.remove(-1)).isInstanceOf(IndexOutOfBoundsException.class);
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test()
     public void failureRemoveMoreThanSizeTest() {
         SimpleArray<Integer> simpleArray = new SimpleArray<>();
 
@@ -121,7 +120,7 @@ public class SimpleArrayTest {
         simpleArray.add(200);
         simpleArray.add(300);
 
-        simpleArray.remove(3);
+        assertThatThrownBy(() -> simpleArray.remove(3)).isInstanceOf(IndexOutOfBoundsException.class);
     }
 
     @Test
@@ -134,15 +133,15 @@ public class SimpleArrayTest {
         simpleArray.add(400);
 
         Iterator<Integer> iterator = simpleArray.iterator();
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(100));
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(200));
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(300));
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(400));
-        assertThat(iterator.hasNext(), is(false));
+        assertThat(iterator.hasNext()).isEqualTo(true);
+        assertThat(iterator.next()).isEqualTo(100);
+        assertThat(iterator.hasNext()).isEqualTo(true);
+        assertThat(iterator.next()).isEqualTo(200);
+        assertThat(iterator.hasNext()).isEqualTo(true);
+        assertThat(iterator.next()).isEqualTo(300);
+        assertThat(iterator.hasNext()).isEqualTo(true);
+        assertThat(iterator.next()).isEqualTo(400);
+        assertThat(iterator.hasNext()).isEqualTo(false);
     }
 
 }

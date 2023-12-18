@@ -1,13 +1,13 @@
 package ru.job4j.chapter01.collection;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class DynamicContainerTest {
     @Test
@@ -15,7 +15,7 @@ public class DynamicContainerTest {
         DynamicContainer<String> array = new DynamicContainer<>();
         array.add("first");
         String rsl = array.get(0);
-        assertThat(rsl, is("first"));
+        assertThat(rsl).isEqualTo("first");
     }
 
     @Test
@@ -23,50 +23,58 @@ public class DynamicContainerTest {
         DynamicContainer<String> array = new DynamicContainer<>();
         array.add("first");
         String rsl = array.iterator().next();
-        assertThat(rsl, is("first"));
+        assertThat(rsl).isEqualTo("first");
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test()
     public void whenGetEmpty() {
         DynamicContainer<String> array = new DynamicContainer<>();
-        array.get(0);
+        assertThatThrownBy(() -> array.get(0))
+                .isInstanceOf(IndexOutOfBoundsException.class);
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test()
     public void whenGetOutBound() {
         DynamicContainer<String> array = new DynamicContainer<>();
         array.add("first");
-        array.get(1);
+
+        assertThatThrownBy(() -> array.get(1))
+                .isInstanceOf(IndexOutOfBoundsException.class);
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test()
     public void whenGetEmptyFromIt() {
         DynamicContainer<String> array = new DynamicContainer<>();
-        array.iterator().next();
+        assertThatThrownBy(() -> array.iterator().next())
+                .isInstanceOf(NoSuchElementException.class);
     }
 
-    @Test(expected = ConcurrentModificationException.class)
+    @Test()
     public void whenCorruptedIt() {
         DynamicContainer<String> array = new DynamicContainer<>();
         array.add("first");
         Iterator<String> it = array.iterator();
         array.add("second");
-        it.next();
+
+        assertThatThrownBy(it::next)
+                .isInstanceOf(ConcurrentModificationException.class);
     }
 
     @Test
     public void positiveIteratorTest() {
         DynamicContainer<String> array = new DynamicContainer<>();
+
         array.add("first");
         array.add("second");
         array.add("third");
+
         Iterator<String> it = array.iterator();
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is("first"));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is("second"));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is("third"));
-        assertThat(it.hasNext(), is(false));
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo("first");
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo("second");
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isEqualTo("third");
+        assertThat(it.hasNext()).isFalse();
     }
 }

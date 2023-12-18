@@ -1,9 +1,8 @@
 package ru.job4j.chapter01.store;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MemStoreTest {
 
@@ -19,9 +18,9 @@ public class MemStoreTest {
         userStore.add(user2);
         userStore.add(user3);
 
-        assertThat(userStore.findById("USER#001"), is(user1));
-        assertThat(userStore.findById("USER#002"), is(user2));
-        assertThat(userStore.findById("USER#003"), is(user3));
+        assertThat(userStore.findById("USER#001")).isEqualTo(user1);
+        assertThat(userStore.findById("USER#002")).isEqualTo(user2);
+        assertThat(userStore.findById("USER#003")).isEqualTo(user3);
     }
 
     @Test
@@ -36,9 +35,9 @@ public class MemStoreTest {
         roleStore.add(role2);
         roleStore.add(role3);
 
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#001"), is(role1));
-        assertThat(roleStore.findById("ROLE#003"), is(role3));
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#001")).isEqualTo(role1);
+        assertThat(roleStore.findById("ROLE#003")).isEqualTo(role3);
     }
 
     @Test
@@ -54,13 +53,13 @@ public class MemStoreTest {
         userStore.add(user2);
         userStore.add(user3);
 
-        assertThat(userStore.findById("USER#001"), is(user1));
-        assertThat(userStore.findById("USER#001"), is(user1));
-        assertThat(userStore.findById("USER#003"), is(user3));
+        assertThat(userStore.findById("USER#001")).isEqualTo(user1);
+        assertThat(userStore.findById("USER#001")).isEqualTo(user1);
+        assertThat(userStore.findById("USER#003")).isEqualTo(user3);
 
-        assertThat(userStore.replace("USER#003", user4), is(true));
+        assertThat(userStore.replace("USER#003", user4)).isTrue();
 
-        assertThat(userStore.findById("USER#004"), is(user4));
+        assertThat(userStore.findById("USER#004")).isEqualTo(user4);
 
     }
 
@@ -76,7 +75,7 @@ public class MemStoreTest {
         roleStoreStore.add(role2);
         roleStoreStore.add(role3);
 
-        assertThat(roleStoreStore.findById("ROLE#004") == null, is(true));
+        assertThat(roleStoreStore.findById("ROLE#004") == null).isTrue();
     }
 
     @Test
@@ -93,14 +92,14 @@ public class MemStoreTest {
         userStore.add(user3);
         userStore.add(user4);
 
-        assertThat(userStore.findById("USER#001"), is(user1));
-        assertThat(userStore.findById("USER#002"), is(user2));
-        assertThat(userStore.findById("USER#003"), is(user3));
-        assertThat(userStore.findById("USER#004"), is(user4));
+        assertThat(userStore.findById("USER#001")).isEqualTo(user1);
+        assertThat(userStore.findById("USER#002")).isEqualTo(user2);
+        assertThat(userStore.findById("USER#003")).isEqualTo(user3);
+        assertThat(userStore.findById("USER#004")).isEqualTo(user4);
 
-        assertThat(userStore.delete("USER#003"), is(true));
+        assertThat(userStore.delete("USER#003")).isTrue();
 
-        assertThat(userStore.findById("USER#003") == null, is(true));
+        assertThat(userStore.findById("USER#003") == null).isTrue();
     }
 
     @Test
@@ -117,14 +116,14 @@ public class MemStoreTest {
         userStore.add(user3);
         userStore.add(user4);
 
-        assertThat(userStore.findById("USER#001"), is(user1));
-        assertThat(userStore.findById("USER#001"), is(user1));
-        assertThat(userStore.findById("USER#003"), is(user3));
-        assertThat(userStore.findById("USER#004"), is(user4));
+        assertThat(userStore.findById("USER#001")).isEqualTo(user1);
+        assertThat(userStore.findById("USER#001")).isEqualTo(user1);
+        assertThat(userStore.findById("USER#003")).isEqualTo(user3);
+        assertThat(userStore.findById("USER#004")).isEqualTo(user4);
 
-        assertThat(userStore.delete("USER#001"), is(true));
+        assertThat(userStore.delete("USER#001")).isTrue();
 
-        assertThat(userStore.findById("USER#001"), is(user2));
+        assertThat(userStore.findById("USER#001")).isEqualTo(user2);
     }
 
     @Test
@@ -141,11 +140,11 @@ public class MemStoreTest {
         userStore.add(user3);
         userStore.add(user4);
 
-        assertThat(userStore.findById("USER#001"), is(user1));
-        assertThat(userStore.findById("USER#001"), is(user1));
-        assertThat(userStore.findById("USER#003"), is(user3));
-        assertThat(userStore.findById("USER#004"), is(user4));
+        assertThat(userStore.findById("USER#001")).isEqualTo(user1);
+        assertThat(userStore.findById("USER#001")).isEqualTo(user1);
+        assertThat(userStore.findById("USER#003")).isEqualTo(user3);
+        assertThat(userStore.findById("USER#004")).isEqualTo(user4);
 
-        assertThat(userStore.delete("USER#005"), is(false));
+        assertThat(userStore.delete("USER#005")).isFalse();
     }
 }

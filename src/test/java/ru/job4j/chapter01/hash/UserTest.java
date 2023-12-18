@@ -1,6 +1,6 @@
 package ru.job4j.chapter01.hash;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

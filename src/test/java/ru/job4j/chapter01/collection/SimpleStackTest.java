@@ -1,9 +1,9 @@
 package ru.job4j.chapter01.collection;
 
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SimpleStackTest {
 
@@ -11,7 +11,7 @@ public class SimpleStackTest {
     public void whenPushThenPoll() {
         SimpleStack<Integer> stack = new SimpleStack<>();
         stack.push(1);
-        assertThat(stack.pop(), is(1));
+        assertThat(stack.pop()).isEqualTo(1);
     }
 
     @Test
@@ -20,7 +20,7 @@ public class SimpleStackTest {
         stack.push(1);
         stack.pop();
         stack.push(2);
-        assertThat(stack.pop(), is(2));
+        assertThat(stack.pop()).isEqualTo(2);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class SimpleStackTest {
         stack.push(1);
         stack.push(2);
         stack.pop();
-        assertThat(stack.pop(), is(1));
+        assertThat(stack.pop()).isEqualTo(1);
     }
 
     @Test
@@ -41,6 +41,6 @@ public class SimpleStackTest {
         stack.push(4);
         stack.push(5);
         stack.push(6);
-        assertThat(stack.pop(), is(6));
+        assertThat(stack.pop()).isEqualTo(6);
     }
 }
