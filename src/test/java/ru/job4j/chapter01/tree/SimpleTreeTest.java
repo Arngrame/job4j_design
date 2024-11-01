@@ -36,7 +36,7 @@ public class SimpleTreeTest {
     }
 
     @Test
-    void whenRootIsNotBinary () {
+    void whenRootIsNotBinary() {
         Tree<Integer> tree = new SimpleTree<>(1);
 
         tree.add(1, 2);
