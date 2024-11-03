@@ -1,4 +1,4 @@
-package ru.job4j.chapter02.task5;
+package ru.job4j.chapter02.task5br;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
