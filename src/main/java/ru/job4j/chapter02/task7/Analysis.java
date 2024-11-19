@@ -18,9 +18,8 @@ public class Analysis {
             List<StringBuilder> ranges = new ArrayList<>();
             int rangeIndex = 0;
 
-            List<String> lines = sourceFile.lines().toList();
-
-            for (String currentLine : lines) {
+            String currentLine = sourceFile.readLine();
+            while (currentLine != null) {
                 String[] parts = currentLine.split(" ");
 
                 if (UNAVAILABLE_STATES.contains(parts[0])) {
@@ -40,6 +39,8 @@ public class Analysis {
                         ranges.add(new StringBuilder());
                     }
                 }
+
+                currentLine = sourceFile.readLine();
             }
         } catch (Exception e) {
             e.printStackTrace();
