@@ -28,11 +28,11 @@ public class Analysis {
                     }
 
                     if (ranges.get(rangeIndex).isEmpty()) {
-                        ranges.get(rangeIndex).append(parts[1] + ";");
+                        ranges.get(rangeIndex).append(parts[1]).append(";");
                     }
                 } else {
                     if (!ranges.isEmpty()) {
-                        ranges.get(rangeIndex).append(parts[1] + ";");
+                        ranges.get(rangeIndex).append(parts[1]).append(";");
                         targetFile.println(ranges.get(rangeIndex).toString());
 
                         rangeIndex++;
