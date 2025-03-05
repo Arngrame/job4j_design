@@ -10,7 +10,8 @@ create table products
 	tax 	 integer
 );
 
--- 2. Создать триггер, срабатывающий после вставки данных: для любого товара рассчитывать налог. Триггер на уровне запроса
+-- 2. Создать триггер, срабатывающий ПОСЛЕ вставки данных: для любого товара рассчитывать налог.
+-- Триггер на уровне ЗАПРОСА
 -- 2.1 Функция расчёта НДС
 create
 or replace function tax()
@@ -39,28 +40,23 @@ insert into products (name, producer, count, price) values ('Тирамису', 
 select * from products;
 
 
--- 3. Создать триггер, срабатывающий до вставки данных: цель та же, но триггер на уровне строки
+-- 3. Создать триггер, срабатывающий ДО вставки данных: цель та же, но триггер на уровне СТРОКИ
 -- 3.1 Функция
-create
-or replace function tax2()
+create or replace function tax2()
     returns trigger as
 $$
     BEGIN
-        update products
-        set tax = price * 0.15
-        where id = (select id from inserted);
+        new.tax := new.price * 0.15;
         return new;
     END;
 $$
 LANGUAGE 'plpgsql';
 
 -- 3.2 Триггер
-create trigger tax_trigger_row
-    after insert
+create or replace trigger tax_trigger_row
+    before insert
     on products
-    referencing new table as
-                    inserted
-    for each statement
+    for each row
     execute procedure tax2();
 
 -- 3.3 Тест
